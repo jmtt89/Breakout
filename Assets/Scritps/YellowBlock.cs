@@ -32,8 +32,11 @@ public class YellowBlock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.LeftControl))
+        {
+            StartCoroutine(KillMe());
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -60,6 +63,11 @@ public class YellowBlock : MonoBehaviour {
         yield return new WaitWhile(() => _destroy.isPlaying);
         yield return new WaitWhile(() => _particle.isPlaying);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        LevelManager.numInitialBlocks--;
     }
 
 }

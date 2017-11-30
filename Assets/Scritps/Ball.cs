@@ -39,8 +39,6 @@ public class Ball : MonoBehaviour {
     void LateUpdate () {
         if (LevelManager.InBonusTime() && _renderer.material.color == _original)
         {
-            Debug.Log("LATE_UPDATE");
-            Debug.Log(LevelManager.InBonusTime());
             _renderer.material.color = Color.yellow;
         }
         else if(!LevelManager.InBonusTime() && _renderer.material.color != _original)

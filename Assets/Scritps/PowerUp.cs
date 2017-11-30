@@ -35,7 +35,6 @@ public class PowerUp : MonoBehaviour {
 
     public void StartMovement()
     {
-        Debug.Log("StartMovement");
         enabled = true;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.AddForce(0.0f, 0.0f, -1.0f, ForceMode.Impulse);
@@ -43,7 +42,6 @@ public class PowerUp : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(transform.parent.gameObject);
         if (collider.name == "Paddle")
         {
             LevelManager.Points += 10;

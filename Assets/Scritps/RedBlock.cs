@@ -19,8 +19,11 @@ public class RedBlock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-	}
+        if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.LeftControl))
+        {
+            StartCoroutine(KillMe());
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -34,9 +37,13 @@ public class RedBlock : MonoBehaviour {
         _destroy.Play();
         _render.enabled = false;
         LevelManager.Points += 50;
-        LevelManager.numInitialBlocks--;
         yield return new WaitWhile(() => _destroy.isPlaying);
         yield return new WaitWhile(() => _particle.isPlaying);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        LevelManager.numInitialBlocks--;
     }
 }

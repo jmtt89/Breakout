@@ -11,9 +11,13 @@ public class LevelObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        _powerBombMatA = GameObject.Find("PowerBombA").GetComponent<Renderer>().material;
-        _powerBombMatB = GameObject.Find("PowerBombB").GetComponent<Renderer>().material;
-        _powerBombMatC = GameObject.Find("PowerBombC").GetComponent<Renderer>().material;
+        var idx = SceneManager.GetActiveScene().buildIndex;
+        if(idx > 0)
+        {
+            _powerBombMatA = GameObject.Find("PowerBombA").GetComponent<Renderer>().material;
+            _powerBombMatB = GameObject.Find("PowerBombB").GetComponent<Renderer>().material;
+            _powerBombMatC = GameObject.Find("PowerBombC").GetComponent<Renderer>().material;
+        }
         _score = GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>();
     }
 	
@@ -23,9 +27,8 @@ public class LevelObject : MonoBehaviour {
         {
             UpdatePowerBombMetter();
             UpdateScoreMetter();
-            if (LevelManager.numInitialBlocks == 0)
+            if (transform.childCount == 0)
             {
-
                 if (idx > 0 && idx < 3)
                 {
                     // Proximo nivel
@@ -34,6 +37,10 @@ public class LevelObject : MonoBehaviour {
                 else if (idx == 3)
                 {
                     // Fin del juego a Main
+                    ChangeLevel(0);
+                }
+                else
+                {
                     ChangeLevel(0);
                 }
             }
@@ -51,11 +58,13 @@ public class LevelObject : MonoBehaviour {
 
     private void ChangeLevel(string levelName)
     {
+        LevelManager.numInitialBlocks = 0;
         SceneManager.LoadScene(levelName);
     }
 
     private void ChangeLevel(int levelIndex)
     {
+        LevelManager.numInitialBlocks = 0;
         SceneManager.LoadScene(levelIndex);
     }
 
